@@ -1,10 +1,25 @@
-npm init -y
+### Start node.js
 
-npm i fastify zod
-npm i typescript @types/node tsx prisma -D
+<code>npm init -y</code>
 
-npx tsc --init
+### Intalando Fastify e Zod
 
-- "dev": "tsx watch --env-file .env src/server.ts"
+<code>npm i fastify zod</code>
 
-npx prisma init --datasource-provider SQLite
+### Instalando typescrypt, prisma e tsx como ambiente de desenvolvimento.
+
+<code>npm i typescript @types/node tsx prisma -D</code>
+
+### Iniciando config do typescript
+
+<code>npx tsc --init</code>
+
+### Script do package.json
+
+<code>"dev": "tsx watch --env-file .env src/server.ts"</code>
+
+### Inicializando servidor SQLite(ambiente na propria maquina)
+
+<code>npx prisma init --datasource-provider SQLite</code>
+
+\*\* [x] Agora cada usuário pode se cadastrar em múltiplos Eventos
