@@ -28,13 +28,12 @@ export const registerEvent = async (app: FastifyInstance) => {
       const { eventId } = request.params;
       const body = request.body;
 
-      const [existUser, event] = await Promise.all([
-        CreateUser(body),
-        prisma.event.findUnique({
-          where: { id: eventId },
-          include: { attendees: true },
-        }),
-      ]);
+      const existUser = await CreateUser(body);
+
+      const event = await prisma.event.findUnique({
+        where: { id: eventId },
+        include: { attendees: true },
+      });
 
       if (!event) {
         throw new Error("Evento não encontrado");

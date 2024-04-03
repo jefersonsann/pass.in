@@ -4,7 +4,9 @@ CREATE TABLE "users" (
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT,
-    "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "checkin_id" INTEGER NOT NULL,
+    CONSTRAINT "users_checkin_id_fkey" FOREIGN KEY ("checkin_id") REFERENCES "check-ins" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -18,6 +20,12 @@ CREATE TABLE "events" (
 );
 
 -- CreateTable
+CREATE TABLE "check-ins" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- CreateTable
 CREATE TABLE "_EventToUser" (
     "A" TEXT NOT NULL,
     "B" TEXT NOT NULL,
@@ -27,6 +35,9 @@ CREATE TABLE "_EventToUser" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "users_checkin_id_key" ON "users"("checkin_id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "events_slug_key" ON "events"("slug");
