@@ -32,13 +32,15 @@ model Event {
   maximumAttendees Int?     @map("maximum_attendees")
   createdAt        DateTime @default(now()) @map("created_at")
   attendees        User[]
+  CheckIn          CheckIn?
 
   @@map("events")
 }
 
 model CheckIn {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now()) @map("created_at")
+  id        Int    @id @default(autoincrement())
+  event     Event  @relation(fields: [eventId], references: [id])
+  eventId   String @unique
   attendees User[]
 
   @@map("check-ins")

@@ -5,7 +5,7 @@ import prisma from "../lib/prisma";
 
 export const CheckInEvent = async (app: FastifyInstance) => {
   app.withTypeProvider<ZodTypeProvider>().get(
-    "/user/:userId/events/:eventId/check-in",
+    "/events/:eventId/user/:userId/check-in",
     {
       schema: {
         params: z.object({
@@ -46,19 +46,16 @@ export const CheckInEvent = async (app: FastifyInstance) => {
         throw new Error("Você não está cadastrado neste evento");
       }
 
-      // Criar o check-in associando o usuário ao evento
-      const checkedInCreate = await prisma.checkIn.create({
+      // Atualizar o campo checkInId no usuário para o ID do check-in criado
+      await prisma.checkIn.update({
+        where: { eventId: eventId },
         data: {
           attendees: {
-            connect: [{ id: userId }],
+            connect: {
+              id: userId,
+            },
           },
         },
-      });
-
-      // Atualizar o campo checkInId no usuário para o ID do check-in criado
-      await prisma.user.update({
-        where: { id: userId },
-        data: { checkInId: checkedInCreate.id },
       });
 
       return reply.send({ message: "Check-in realizado com sucesso" });

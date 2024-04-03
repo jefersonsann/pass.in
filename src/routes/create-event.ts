@@ -44,6 +44,14 @@ export const createEvent = async (app: FastifyInstance) => {
           maximumAttendees,
         },
       });
+
+      await prisma.checkIn.create({
+        data: {
+          event: {
+            connect: { id: event.id },
+          },
+        },
+      });
       reply.code(201).send({ eventId: event.id });
     }
   );
