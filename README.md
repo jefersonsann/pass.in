@@ -1,25 +1,51 @@
-### Start node.js
+# PASS.IN (NLW rocketseat)
 
-<code>npm init -y</code>
+### Ajustes e melhorias
 
-### Intalando Fastify e Zod
+O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas nas seguintes tarefas:
 
-<code>npm i fastify zod</code>
+- [x] Criar eventos
+- [x] Cadastrar usuário ao evento
+- [x] Caso usuário não exista crie um novo usuário e cadastreio no evento
+- [ ] Tarefa 4
+- [ ] Tarefa 5
 
-### Instalando typescrypt, prisma e tsx como ambiente de desenvolvimento.
+## 🚀 Instalando PASS.IN
 
-<code>npm i typescript @types/node tsx prisma -D</code>
+Para instalar o PASS.IN, siga estas etapas:
 
-### Iniciando config do typescript
+##### Start node.js:
 
-<code>npx tsc --init</code>
+```
+npm init -y
+```
 
-### Script do package.json
+##### Intalando Fastify e Zod:
 
-<code>"dev": "tsx watch --env-file .env src/server.ts"</code>
+```
+npm i fastify zod
+```
 
-### Inicializando servidor SQLite(ambiente na propria maquina)
+##### Instalando typescrypt, prisma e tsx como ambiente de desenvolvimento:
 
-<code>npx prisma init --datasource-provider SQLite</code>
+```
+npm i typescript @types/node tsx prisma -D
+```
 
-\*\* [x] Agora cada usuário pode se cadastrar em múltiplos Eventos
+##### Iniciando config do typescript:
+
+```
+npx tsc --init
+```
+
+##### Script do package.json:
+
+```
+dev": "tsx watch --env-file .env src/server.ts"
+```
+
+##### Inicializando servidor SQLite(ambiente na propria maquina):
+
+```
+npx prisma init --datasource-provider SQLite
+```
