@@ -8,6 +8,8 @@ export const getUserBadge = async (app: FastifyInstance) => {
     "/user/:userId/badge",
     {
       schema: {
+        summary: "Link de inscrição do evento para o usuário",
+        tags: ["User"],
         params: z.object({
           userId: z.string().uuid(),
         }),

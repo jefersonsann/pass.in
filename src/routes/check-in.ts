@@ -8,6 +8,8 @@ export const CheckInEvent = async (app: FastifyInstance) => {
     "/events/:eventId/user/:userId/check-in",
     {
       schema: {
+        summary: "Check-in",
+        tags: ["Check-in"],
         params: z.object({
           userId: z.string().uuid(),
           eventId: z.string().uuid(),

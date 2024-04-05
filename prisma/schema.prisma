@@ -18,7 +18,7 @@ model User {
   createdAt DateTime @default(now()) @map("created_at")
   events    Event[]
 
-  checkIn   CheckIn? @relation(fields: [checkInId], references: [id])
+  checkIn   CheckIn? @relation(fields: [checkInId], references: [id], onDelete: Cascade)
   checkInId Int?     @unique @map("checkin_id")
 
   @@map("users")
@@ -39,7 +39,7 @@ model Event {
 
 model CheckIn {
   id        Int    @id @default(autoincrement())
-  event     Event  @relation(fields: [eventId], references: [id])
+  event     Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
   eventId   String @unique
   attendees User[]
 

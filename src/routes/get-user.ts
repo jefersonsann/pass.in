@@ -8,6 +8,8 @@ export const getUser = async (app: FastifyInstance) => {
     "/user/:userId",
     {
       schema: {
+        summary: "Buscar unico usuário por Id",
+        tags: ["User"],
         params: z.object({
           userId: z.string().uuid(),
         }),
