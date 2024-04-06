@@ -10,6 +10,8 @@ import {
 import { CheckInEvent } from "./routes/check-in";
 import { createEvent } from "./routes/create-event";
 import { getAllAttendeesEvent } from "./routes/get-all-attendees-event";
+import { getAllEvents } from "./routes/get-all-events";
+import { getAllUsers } from "./routes/get-all-users";
 import { getEvent } from "./routes/get-event";
 import { getUser } from "./routes/get-user";
 import { getUserBadge } from "./routes/get-user-badge";
@@ -22,7 +24,7 @@ app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
 
 app.register(cors, {
-  origin: "http://localhost:3000", //Use * para axceitar qualquer URL
+  origin: "http://localhost:5173", //Use * para axceitar qualquer URL
 });
 
 app.register(fastifySwagger, {
@@ -48,6 +50,8 @@ app.register(getUser);
 app.register(getUserBadge);
 app.register(CheckInEvent);
 app.register(getAllAttendeesEvent);
+app.register(getAllUsers);
+app.register(getAllEvents);
 
 app.listen({ port: 3333, host: "0.0.0.0" }).then(() => {
   console.log({ message: "Seerver is running" });

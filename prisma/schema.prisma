@@ -11,12 +11,12 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  name      String
-  email     String   @unique
-  password  String?
-  createdAt DateTime @default(now()) @map("created_at")
-  events    Event[]
+  id          String    @id @default(uuid())
+  name        String
+  email       String    @unique
+  createdAt   DateTime  @default(now()) @map("created_at")
+  checkedInAt DateTime? @map("checked_in_at")
+  events      Event[]
 
   checkIn   CheckIn? @relation(fields: [checkInId], references: [id], onDelete: Cascade)
   checkInId Int?     @unique @map("checkin_id")

@@ -33,7 +33,15 @@ export const CheckInEvent = async (app: FastifyInstance) => {
       // Verificar se o evento existe e se o usuário está cadastrado nele
       const event = await prisma.event.findUnique({
         where: { id: eventId },
-        include: { attendees: true },
+        include: {
+          CheckIn: {
+            select: {
+              id: true,
+              _count: true,
+            },
+          },
+          attendees: true,
+        },
       });
 
       if (!event) {
@@ -47,20 +55,33 @@ export const CheckInEvent = async (app: FastifyInstance) => {
       if (!userIsAttendee) {
         throw new Error("Você não está cadastrado neste evento");
       }
+      console.log(userId);
 
-      // Atualizar o campo checkInId no usuário para o ID do check-in criado
-      await prisma.checkIn.update({
-        where: { eventId: eventId },
-        data: {
-          attendees: {
-            connect: {
-              id: userId,
+      try {
+        const checkin = await prisma.checkIn.update({
+          where: { id: +event.CheckIn?.id! },
+          data: {
+            attendees: {
+              connect: {
+                id: userId,
+              },
             },
           },
-        },
-      });
+        });
 
-      return reply.send({ message: "Check-in realizado com sucesso" });
+        await prisma.user.update({
+          where: {
+            id: userId,
+          },
+          data: {
+            checkedInAt: new Date(),
+          },
+        });
+
+        return reply.send({ message: "Check-in realizado com sucesso" });
+      } catch (error) {
+        throw new Error("Erro ao fazer check-in: " + error);
+      }
     }
   );
 };

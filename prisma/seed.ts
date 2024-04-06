@@ -8,13 +8,20 @@ async function seed() {
 
   await prisma.event.deleteMany();
 
-  await prisma.event.create({
+  const event = await prisma.event.create({
     data: {
       id: eventId,
       title: "Unite Summit",
       slug: "unite-summit",
       details: "Um evento p/ devs apaixonados(as) por código!",
       maximumAttendees: 120,
+    },
+  });
+  await prisma.checkIn.create({
+    data: {
+      event: {
+        connect: { id: event.id },
+      },
     },
   });
 
@@ -25,7 +32,6 @@ async function seed() {
       id: faker.string.uuid(),
       name: faker.person.fullName(),
       email: faker.internet.email(),
-      password: "12345",
       createdAt: faker.date.recent({
         days: 30,
         refDate: dayjs().subtract(8, "days").toDate(),

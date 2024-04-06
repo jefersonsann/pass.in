@@ -27,6 +27,7 @@ export const getEvent = async (app: FastifyInstance) => {
                 z.object({
                   id: z.string().uuid(),
                   name: z.string(),
+                  checkedInAt: z.date().nullable(),
                 })
               ),
             }),
@@ -49,6 +50,7 @@ export const getEvent = async (app: FastifyInstance) => {
             select: {
               id: true,
               name: true,
+              checkedInAt: true,
             },
           },
           _count: {

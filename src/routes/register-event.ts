@@ -14,7 +14,6 @@ export const registerEvent = async (app: FastifyInstance) => {
         body: z.object({
           name: z.string().min(4),
           email: z.string().email(),
-          password: z.string().min(4),
         }),
         params: z.object({
           eventId: z.string().uuid(),

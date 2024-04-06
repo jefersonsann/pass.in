@@ -44,6 +44,8 @@ export const getUser = async (app: FastifyInstance) => {
               title: true,
             },
           },
+          checkIn: true,
+          checkedInAt: true,
         },
 
         where: {
