@@ -53,6 +53,7 @@ export const getAllEvents = async (app: FastifyInstance) => {
             details: event.details,
             maximumAttendees: event.maximumAttendees,
             attendeesAmout: event._count.attendees,
+            createdAt: event.createdAt,
             attendees: [
               event.attendees.map((attendee) => {
                 return {

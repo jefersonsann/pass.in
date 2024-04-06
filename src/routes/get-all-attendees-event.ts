@@ -25,36 +25,36 @@ export const getAllAttendeesEvent = async (app: FastifyInstance) => {
       const { pageIndex, query } = request.query;
 
       const attendees = await prisma.event.findMany({
-        where: query
-          ? {
-              id: eventId,
+        where: {
+          id: eventId,
+        },
+        include: {
+          _count: {
+            select: {
               attendees: {
-                every: { name: query },
+                where: {
+                  name: query
+                    ? {
+                        contains: query,
+                      }
+                    : undefined,
+                },
               },
-            }
-          : {
-              id: eventId,
             },
-        select: {
+          },
           attendees: {
+            where: {
+              name: query
+                ? {
+                    contains: query,
+                  }
+                : undefined,
+            },
             take: 10,
             skip: pageIndex * 10,
             orderBy: { createdAt: "desc" },
           },
         },
-      });
-
-      const total = await prisma.event.count({
-        where: query
-          ? {
-              id: eventId,
-              attendees: {
-                every: { name: query },
-              },
-            }
-          : {
-              id: eventId,
-            },
       });
 
       return reply.send({
@@ -64,7 +64,7 @@ export const getAllAttendeesEvent = async (app: FastifyInstance) => {
           createdAt: attendee.createdAt,
           checkedInAt: attendee.checkedInAt,
         })),
-        total: total,
+        total: attendees[0]._count.attendees,
       });
     }
   );
